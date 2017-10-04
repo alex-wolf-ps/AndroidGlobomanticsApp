@@ -15,9 +15,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.example.alexr.taskmanager.Models.Task;
+import com.example.alexr.taskmanager.Services.ServiceFactory;
+import com.example.alexr.taskmanager.Services.TaskService;
 import com.example.alexr.taskmanager.dummy.DummyContent;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * An activity representing a list of Tasks. This activity
@@ -39,6 +46,7 @@ public class TaskListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
+        final Context context = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,14 +56,13 @@ public class TaskListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(context, TaskCreateActivity.class);
+                context.startActivity(intent);
             }
         });
 
-        View recyclerView = findViewById(R.id.task_list);
+        final RecyclerView recyclerView = (RecyclerView)findViewById(R.id.task_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
 
         if (findViewById(R.id.task_detail_container) != null) {
             // The detail container view will be present only in the
@@ -64,18 +71,29 @@ public class TaskListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
-    }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        TaskService taskService = ServiceFactory.createService(TaskService.class);
+
+        Call<List<Task>> call = taskService.getTasks();
+        call.enqueue(new Callback<List<Task>>() {
+            @Override
+            public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
+                recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<List<Task>> call, Throwable t) {
+                String test = "";
+            }
+        });
     }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<Task> mValues;
 
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+        public SimpleItemRecyclerViewAdapter(List<Task> items) {
             mValues = items;
         }
 
@@ -89,15 +107,15 @@ public class TaskListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(Integer.toString(mValues.get(position).getId()));
+            holder.mContentView.setText(mValues.get(position).getName());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(TaskDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        arguments.putInt(TaskDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
                         TaskDetailFragment fragment = new TaskDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -106,7 +124,7 @@ public class TaskListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, TaskDetailActivity.class);
-                        intent.putExtra(TaskDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        intent.putExtra(TaskDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
 
                         context.startActivity(intent);
                     }
@@ -123,7 +141,7 @@ public class TaskListActivity extends AppCompatActivity {
             public final View mView;
             public final TextView mIdView;
             public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
+            public Task mItem;
 
             public ViewHolder(View view) {
                 super(view);

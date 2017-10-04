@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * An activity representing a single Task detail screen. This
@@ -16,12 +16,12 @@ import android.view.MenuItem;
  * item details are presented side-by-side with a list of items
  * in a {@link TaskListActivity}.
  */
-public class TaskDetailActivity extends AppCompatActivity {
+public class TaskCreateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_detail);
+        setContentView(R.layout.activity_task_create);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,9 +53,9 @@ public class TaskDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putInt(TaskDetailFragment.ARG_ITEM_ID,
-                    getIntent().getIntExtra(TaskDetailFragment.ARG_ITEM_ID, 0));
-            TaskDetailFragment fragment = new TaskDetailFragment();
+            arguments.putInt(TaskCreateFragment.ARG_ITEM_ID,
+                    getIntent().getIntExtra(TaskCreateFragment.ARG_ITEM_ID, 0));
+            TaskCreateFragment fragment = new TaskCreateFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.task_detail_container, fragment)

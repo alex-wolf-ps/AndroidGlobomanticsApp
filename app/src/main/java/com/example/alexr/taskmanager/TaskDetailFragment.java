@@ -9,7 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.alexr.taskmanager.Models.Task;
+import com.example.alexr.taskmanager.Services.ServiceFactory;
+import com.example.alexr.taskmanager.Services.TaskService;
 import com.example.alexr.taskmanager.dummy.DummyContent;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A fragment representing a single Task detail screen.
@@ -27,7 +36,7 @@ public class TaskDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private Task mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -40,28 +49,45 @@ public class TaskDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
-            }
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.task_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.task_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.task_detail)).setText(mItem.details);
+        if (getArguments().containsKey(ARG_ITEM_ID)) {
+            // Load the dummy content specified by the fragment
+            // arguments. In a real-world scenario, use a Loader
+            // to load content from a content provider.
+            Activity activity = this.getActivity();
+            final CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+
+            TaskService taskService = ServiceFactory.createService(TaskService.class);
+
+            Call<Task> call = taskService.getTask(getArguments().getInt(ARG_ITEM_ID));
+            call.enqueue(new Callback<Task>() {
+                @Override
+                public void onResponse(Call<Task> call, Response<Task> response) {
+                    mItem = response.body();
+
+                    if (appBarLayout != null) {
+                        appBarLayout.setTitle(mItem.getName());
+                    }
+
+
+                    // Show the dummy content as text in a TextView.
+                    if (mItem != null) {
+                        ((TextView) rootView.findViewById(R.id.task_detail)).setText(mItem.getNotes());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Task> call, Throwable t) {
+                    String test = "";
+                }
+            });
         }
 
         return rootView;

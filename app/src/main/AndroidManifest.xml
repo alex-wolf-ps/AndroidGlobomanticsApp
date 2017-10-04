@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.alexr.taskmanager">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,6 +24,15 @@
         <activity
             android:name=".TaskDetailActivity"
             android:label="@string/title_task_detail"
+            android:parentActivityName=".TaskListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.alexr.taskmanager.TaskListActivity" />
+        </activity>
+        <activity
+            android:name=".TaskCreateActivity"
+            android:label="Create Task"
             android:parentActivityName=".TaskListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
