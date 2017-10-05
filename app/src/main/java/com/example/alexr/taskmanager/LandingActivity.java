@@ -8,6 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import com.example.alexr.taskmanager.Models.Task;
+import com.example.alexr.taskmanager.Services.MessageService;
+import com.example.alexr.taskmanager.Services.ServiceFactory;
+import com.example.alexr.taskmanager.Services.TaskService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * An activity representing a single Task detail screen. This
@@ -21,6 +31,23 @@ public class LandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
+
+        MessageService messageService = ServiceFactory.createService(MessageService.class);
+
+        Call<String> call = messageService.getMessage();
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                TextView message = (TextView)findViewById(R.id.message);
+                message.setText(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                TextView message = (TextView)findViewById(R.id.message);
+                message.setText("Could not retrieve latest message.");
+            }
+        });
     }
 
     public void GetStarted(View view){

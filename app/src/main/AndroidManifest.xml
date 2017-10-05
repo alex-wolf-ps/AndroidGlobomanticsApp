@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".TaskCreateActivity"
-            android:label="Create Task"
+            android:label="A New Thought"
             android:parentActivityName=".TaskListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
