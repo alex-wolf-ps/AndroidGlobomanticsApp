@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:hint="Notes"
             android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
+            android:inputType="textMultiLine"
             android:maxLines="5" />
 
     </android.support.design.widget.TextInputLayout>
@@ -47,12 +47,12 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/email_sign_in_button"
+        android:id="@+id/task_create"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Create"
+        android:text="Submit"
         android:textStyle="bold" />
 
 </LinearLayout>

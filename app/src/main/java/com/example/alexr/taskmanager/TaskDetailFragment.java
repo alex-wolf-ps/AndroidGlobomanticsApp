@@ -1,13 +1,19 @@
 package com.example.alexr.taskmanager;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alexr.taskmanager.Models.Task;
 import com.example.alexr.taskmanager.Services.ServiceFactory;
@@ -55,7 +61,14 @@ public class TaskDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.task_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.task_create, container, false);
+
+        final Context context = getContext();
+
+        Button updateTask = (Button) rootView.findViewById(R.id.task_create);
+        final EditText taskName = (EditText) rootView.findViewById(R.id.task_name);
+        final EditText taskNotes = (EditText) rootView.findViewById(R.id.task_notes);
+        final CheckBox taskComplete = (CheckBox) rootView.findViewById(R.id.task_isComplete);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment
@@ -72,14 +85,12 @@ public class TaskDetailFragment extends Fragment {
                 public void onResponse(Call<Task> call, Response<Task> response) {
                     mItem = response.body();
 
+                    taskName.setText(mItem.getName());
+                    taskNotes.setText(mItem.getNotes());
+                    taskComplete.setChecked(mItem.getIsComplete());
+
                     if (appBarLayout != null) {
                         appBarLayout.setTitle(mItem.getName());
-                    }
-
-
-                    // Show the dummy content as text in a TextView.
-                    if (mItem != null) {
-                        ((TextView) rootView.findViewById(R.id.task_detail)).setText(mItem.getNotes());
                     }
                 }
 
@@ -89,6 +100,36 @@ public class TaskDetailFragment extends Fragment {
                 }
             });
         }
+
+        updateTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TaskService taskService = ServiceFactory.createService(TaskService.class);
+
+                Task newTask = new Task();
+                newTask.setId(getArguments().getInt(ARG_ITEM_ID));
+                newTask.setName(taskName.getText().toString());
+                newTask.setNotes(taskNotes.getText().toString());
+                newTask.setIsComplete(taskComplete.isChecked());
+
+                Call<Task> call = taskService.updateTask(newTask);
+                call.enqueue(new Callback<Task>() {
+                    @Override
+                    public void onResponse(Call<Task> call, Response<Task> response) {
+                        Intent intent = new Intent(context, TaskListActivity.class);
+                        context.startActivity(intent);
+
+                        Toast.makeText(context, "Task updated successfully!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Task> call, Throwable t) {
+                        Toast.makeText(context, "An error occurred updating task.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
 
         return rootView;
     }
