@@ -12,26 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".TaskListActivity"
+            android:name=".IdeaListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TaskDetailActivity"
+            android:name=".IdeaDetailActivity"
             android:label="@string/title_task_detail"
-            android:parentActivityName=".TaskListActivity"
+            android:parentActivityName=".IdeaListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alexr.taskmanager.TaskListActivity" />
+                android:value="com.example.alexr.taskmanager.IdeaListActivity" />
         </activity>
         <activity
-            android:name=".TaskCreateActivity"
+            android:name=".IdeaCreateActivity"
             android:label="A New Thought"
-            android:parentActivityName=".TaskListActivity"
+            android:parentActivityName=".IdeaListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alexr.taskmanager.TaskListActivity" />
+                android:value="com.example.alexr.taskmanager.IdeaListActivity" />
         </activity>
         <activity
             android:name=".LandingActivity"

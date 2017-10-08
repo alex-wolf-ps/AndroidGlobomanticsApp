@@ -1,19 +1,13 @@
 package com.example.alexr.taskmanager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.alexr.taskmanager.Models.Task;
 import com.example.alexr.taskmanager.Services.MessageService;
 import com.example.alexr.taskmanager.Services.ServiceFactory;
-import com.example.alexr.taskmanager.Services.TaskService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +17,7 @@ import retrofit2.Response;
  * An activity representing a single Task detail screen. This
  * activity is only used narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link TaskListActivity}.
+ * in a {@link IdeaListActivity}.
  */
 public class LandingActivity extends AppCompatActivity {
 
@@ -51,7 +45,7 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     public void GetStarted(View view){
-        Intent intent = new Intent(this, TaskListActivity.class);
+        Intent intent = new Intent(this, IdeaListActivity.class);
 
         startActivity(intent);
     }

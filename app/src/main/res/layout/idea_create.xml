@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
-            android:id="@+id/task_name"
+        <EditText
+            android:id="@+id/idea_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
@@ -24,10 +24,10 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/task_notes"
+            android:id="@+id/idea_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Notes"
+            android:hint="Description"
             android:imeOptions="actionUnspecified"
             android:inputType="textMultiLine"
             android:maxLines="5" />
@@ -38,16 +38,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <CheckBox
-            android:id="@+id/task_isComplete"
+        <EditText
+            android:id="@+id/idea_owner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Is Complete" />
+            android:hint="Owner"
+            android:imeOptions="actionUnspecified" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/idea_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Status"
+            android:imeOptions="actionUnspecified" />
 
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/task_create"
+        android:id="@+id/idea_create"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

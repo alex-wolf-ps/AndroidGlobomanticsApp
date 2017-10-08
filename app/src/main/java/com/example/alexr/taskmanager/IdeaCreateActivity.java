@@ -3,39 +3,23 @@ package com.example.alexr.taskmanager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BaseTransientBottomBar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.example.alexr.taskmanager.Models.Task;
-import com.example.alexr.taskmanager.Services.ServiceFactory;
-import com.example.alexr.taskmanager.Services.TaskService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * An activity representing a single Task detail screen. This
  * activity is only used narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link TaskListActivity}.
+ * in a {@link IdeaListActivity}.
  */
-public class TaskCreateActivity extends AppCompatActivity {
+public class IdeaCreateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_create);
+        setContentView(R.layout.activity_idea_create);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         final Context context = this;
@@ -61,12 +45,12 @@ public class TaskCreateActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putInt(TaskCreateFragment.ARG_ITEM_ID,
-                    getIntent().getIntExtra(TaskCreateFragment.ARG_ITEM_ID, 0));
-            TaskCreateFragment fragment = new TaskCreateFragment();
+            arguments.putInt(IdeaCreateFragment.ARG_ITEM_ID,
+                    getIntent().getIntExtra(IdeaCreateFragment.ARG_ITEM_ID, 0));
+            IdeaCreateFragment fragment = new IdeaCreateFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.task_detail_container, fragment)
+                    .add(R.id.idea_detail_container, fragment)
                     .commit();
         }
     }
@@ -81,7 +65,7 @@ public class TaskCreateActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, TaskListActivity.class));
+            navigateUpTo(new Intent(this, IdeaListActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
