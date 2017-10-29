@@ -9,6 +9,11 @@ import android.widget.TextView;
 import com.example.alexr.taskmanager.Services.MessageService;
 import com.example.alexr.taskmanager.Services.ServiceFactory;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,6 +28,7 @@ public class LandingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 

@@ -17,6 +17,11 @@ import com.example.alexr.taskmanager.Models.Idea;
 import com.example.alexr.taskmanager.Services.ServiceFactory;
 import com.example.alexr.taskmanager.Services.IdeaService;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,8 +72,6 @@ public class IdeaDetailFragment extends Fragment {
         final EditText ideaDescription = (EditText) rootView.findViewById(R.id.idea_description);
         final EditText ideaStatus = (EditText) rootView.findViewById(R.id.idea_status);
         final EditText ideaOwner = (EditText) rootView.findViewById(R.id.idea_owner);
-
-        HttpURLConnection connection = 
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment

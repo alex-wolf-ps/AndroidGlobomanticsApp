@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,11 +8,21 @@
         android:id="@+id/id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="54sp"
+        android:textSize="42sp"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:text="Thinklab"
-        android:layout_margin="@dimen/text_margin" />
+        android:text="Globomantics"
+        android:layout_marginTop="@dimen/text_margin" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:textAlignment="center"
+        android:textColor="#424242"
+        android:text="Innovations"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/content"
@@ -30,7 +40,7 @@
         android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin" />
+        android:layout_margin="24dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -41,4 +51,4 @@
         android:textColor="@color/colorWhite"
         android:background="@color/colorAccent"
         android:text="Get Started"/>
-</RelativeLayout>
+</LinearLayout>

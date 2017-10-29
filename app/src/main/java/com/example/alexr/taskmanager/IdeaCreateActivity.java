@@ -24,8 +24,6 @@ public class IdeaCreateActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         final Context context = this;
 
-
-
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

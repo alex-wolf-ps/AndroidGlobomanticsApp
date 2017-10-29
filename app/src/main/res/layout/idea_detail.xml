@@ -86,6 +86,7 @@
             android:layout_marginStart="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:text="Update"
+            android:textColor="@color/colorWhite"
             android:layout_weight="1"
             android:textStyle="bold" />
 
