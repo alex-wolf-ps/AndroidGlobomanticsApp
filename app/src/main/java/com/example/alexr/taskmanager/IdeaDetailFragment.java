@@ -26,36 +26,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A fragment representing a single Task detail screen.
- * This fragment is either contained in a {@link IdeaListActivity}
- * in two-pane mode (on tablets) or a {@link IdeaDetailActivity}
- * on handsets.
- */
 public class IdeaDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
+
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
     private Idea mItem;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public IdeaDetailFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -73,14 +55,12 @@ public class IdeaDetailFragment extends Fragment {
         final EditText ideaStatus = (EditText) rootView.findViewById(R.id.idea_status);
         final EditText ideaOwner = (EditText) rootView.findViewById(R.id.idea_owner);
 
+        final IdeaService ideaService = ServiceFactory.createService(IdeaService.class);
+
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
             Activity activity = this.getActivity();
             final CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
 
-            IdeaService ideaService = ServiceFactory.createService(IdeaService.class);
 
             Call<Idea> call = ideaService.getIdea(getArguments().getInt(ARG_ITEM_ID));
             call.enqueue(new Callback<Idea>() {
@@ -108,8 +88,6 @@ public class IdeaDetailFragment extends Fragment {
         updateIdea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IdeaService ideaService = ServiceFactory.createService(IdeaService.class);
-
                 Idea newIdea = new Idea();
                 newIdea.setId(getArguments().getInt(ARG_ITEM_ID));
                 newIdea.setName(ideaName.getText().toString());
@@ -139,8 +117,6 @@ public class IdeaDetailFragment extends Fragment {
         deleteIdea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IdeaService ideaService = ServiceFactory.createService(IdeaService.class);
-
                 Call<Idea> call = ideaService.deleteIdea(getArguments().getInt(ARG_ITEM_ID));
                 call.enqueue(new Callback<Idea>() {
                     @Override

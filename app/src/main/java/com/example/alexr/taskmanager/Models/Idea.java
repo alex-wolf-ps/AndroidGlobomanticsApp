@@ -39,9 +39,7 @@ public class Idea {
         this.status = status;
     }
 
-    public void setDescription(String description){
-        this.description = description;
-    }
+    public void setDescription(String description){ this.description = description; }
 
     public void setOwner(String owner){
         this.owner = owner;

@@ -7,13 +7,19 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * An activity representing a single Task detail screen. This
- * activity is only used narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a {@link IdeaListActivity}.
- */
+import com.example.alexr.taskmanager.Models.Idea;
+import com.example.alexr.taskmanager.Services.IdeaService;
+import com.example.alexr.taskmanager.Services.ServiceFactory;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class IdeaCreateActivity extends AppCompatActivity {
 
     @Override
@@ -30,42 +36,41 @@ public class IdeaCreateActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
-        if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putInt(IdeaCreateFragment.ARG_ITEM_ID,
-                    getIntent().getIntExtra(IdeaCreateFragment.ARG_ITEM_ID, 0));
-            IdeaCreateFragment fragment = new IdeaCreateFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.idea_detail_container, fragment)
-                    .commit();
-        }
-    }
+        Button createIdea = (Button) findViewById(R.id.idea_create);
+        final EditText ideaName = (EditText) findViewById(R.id.idea_name);
+        final EditText ideaDescription = (EditText) findViewById(R.id.idea_description);
+        final EditText ideaOwner = (EditText) findViewById(R.id.idea_owner);
+        final EditText ideaStatus = (EditText) findViewById(R.id.idea_status);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
-            navigateUpTo(new Intent(this, IdeaListActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        createIdea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IdeaService ideaService = ServiceFactory.createService(IdeaService.class);
+                final View currentView = view;
+
+                Idea newIdea = new Idea();
+                newIdea.setName(ideaName.getText().toString());
+                newIdea.setDescription(ideaDescription.getText().toString());
+                newIdea.setStatus(ideaStatus.getText().toString());
+                newIdea.setOwner(ideaOwner.getText().toString());
+
+                Call<Idea> call = ideaService.createIdea(newIdea);
+                call.enqueue(new Callback<Idea>() {
+                    @Override
+                    public void onResponse(Call<Idea> call, Response<Idea> response) {
+                        Intent intent = new Intent(context, IdeaListActivity.class);
+                        context.startActivity(intent);
+
+                        Toast.makeText(context, "Idea created successfully!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Idea> call, Throwable t) {
+                        Toast.makeText(context, "An error occurred creating idea.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
     }
 }

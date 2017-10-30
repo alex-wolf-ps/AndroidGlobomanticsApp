@@ -1,4 +1,4 @@
-package com.example.alexr.taskmanager.dummy;
+package com.example.alexr.taskmanager.Helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
