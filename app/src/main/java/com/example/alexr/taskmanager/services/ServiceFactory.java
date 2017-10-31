@@ -1,4 +1,4 @@
-package com.example.alexr.taskmanager.Services;
+package com.example.alexr.taskmanager.services;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

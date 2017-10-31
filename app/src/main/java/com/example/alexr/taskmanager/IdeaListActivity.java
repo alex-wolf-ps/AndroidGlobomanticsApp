@@ -13,15 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.example.alexr.taskmanager.Models.Idea;
-import com.example.alexr.taskmanager.Services.ServiceFactory;
-import com.example.alexr.taskmanager.Services.IdeaService;
+import com.example.alexr.taskmanager.helpers.DummyContent;
+import com.example.alexr.taskmanager.models.Idea;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class IdeaListActivity extends AppCompatActivity {
 
@@ -53,20 +48,7 @@ public class IdeaListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
-        IdeaService ideaService = ServiceFactory.createService(IdeaService.class);
-
-        Call<List<Idea>> call = ideaService.getIdeas();
-        call.enqueue(new Callback<List<Idea>>() {
-            @Override
-            public void onResponse(Call<List<Idea>> call, Response<List<Idea>> response) {
-                recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(response.body()));
-            }
-
-            @Override
-            public void onFailure(Call<List<Idea>> call, Throwable t) {
-                String test = "";
-            }
-        });
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
     }
 
 //region Adapter Region

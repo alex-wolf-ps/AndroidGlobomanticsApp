@@ -1,6 +1,6 @@
-package com.example.alexr.taskmanager.Services;
+package com.example.alexr.taskmanager.services;
 
-import com.example.alexr.taskmanager.Models.Idea;
+import com.example.alexr.taskmanager.models.Idea;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;

@@ -2,7 +2,6 @@ package com.example.alexr.taskmanager;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,20 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.alexr.taskmanager.Models.Idea;
-import com.example.alexr.taskmanager.Services.ServiceFactory;
-import com.example.alexr.taskmanager.Services.IdeaService;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.alexr.taskmanager.helpers.DummyContent;
+import com.example.alexr.taskmanager.models.Idea;
+import com.example.alexr.taskmanager.services.ServiceFactory;
+import com.example.alexr.taskmanager.services.IdeaService;
 
 public class IdeaDetailFragment extends Fragment {
 
@@ -61,28 +51,16 @@ public class IdeaDetailFragment extends Fragment {
             Activity activity = this.getActivity();
             final CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
 
+            mItem = DummyContent.getIdeaById(getArguments().getInt(ARG_ITEM_ID));
 
-            Call<Idea> call = ideaService.getIdea(getArguments().getInt(ARG_ITEM_ID));
-            call.enqueue(new Callback<Idea>() {
-                @Override
-                public void onResponse(Call<Idea> call, Response<Idea> response) {
-                    mItem = response.body();
+            ideaName.setText(mItem.getName());
+            ideaDescription.setText(mItem.getDescription());
+            ideaOwner.setText(mItem.getOwner());
+            ideaStatus.setText(mItem.getStatus());
 
-                    ideaName.setText(mItem.getName());
-                    ideaDescription.setText(mItem.getDescription());
-                    ideaStatus.setText(mItem.getStatus());
-                    ideaOwner.setText(mItem.getOwner());
-
-                    if (appBarLayout != null) {
-                        appBarLayout.setTitle(mItem.getName());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Idea> call, Throwable t) {
-                    String test = "";
-                }
-            });
+            if (appBarLayout != null) {
+                appBarLayout.setTitle(mItem.getName());
+            }
         }
 
         updateIdea.setOnClickListener(new View.OnClickListener() {
@@ -95,44 +73,14 @@ public class IdeaDetailFragment extends Fragment {
                 newIdea.setStatus(ideaStatus.getText().toString());
                 newIdea.setOwner(ideaOwner.getText().toString());
 
-                Call<Idea> call = ideaService.updateIdea(newIdea);
-                call.enqueue(new Callback<Idea>() {
-                    @Override
-                    public void onResponse(Call<Idea> call, Response<Idea> response) {
-                        Intent intent = new Intent(context, IdeaListActivity.class);
-                        context.startActivity(intent);
-
-                        Toast.makeText(context, "Idea updated successfully!", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Call<Idea> call, Throwable t) {
-                        Toast.makeText(context, "An error occurred updating the idea.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                DummyContent.updateIdea(newIdea);
             }
         });
 
         deleteIdea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<Idea> call = ideaService.deleteIdea(getArguments().getInt(ARG_ITEM_ID));
-                call.enqueue(new Callback<Idea>() {
-                    @Override
-                    public void onResponse(Call<Idea> call, Response<Idea> response) {
-                        Intent intent = new Intent(context, IdeaListActivity.class);
-                        context.startActivity(intent);
-
-                        Toast.makeText(context, "Idea deleted!", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Call<Idea> call, Throwable t) {
-                        Toast.makeText(context, "An error occurred deleting the idea.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                DummyContent.deleteIdea(getArguments().getInt(ARG_ITEM_ID));
             }
         });
 
