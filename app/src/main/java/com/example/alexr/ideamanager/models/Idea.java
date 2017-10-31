@@ -1,4 +1,4 @@
-package com.example.alexr.taskmanager.models;
+package com.example.alexr.ideamanager.models;
 
 public class Idea {
     private int id;

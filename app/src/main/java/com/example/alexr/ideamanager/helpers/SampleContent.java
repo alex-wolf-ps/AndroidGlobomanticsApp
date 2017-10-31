@@ -1,11 +1,10 @@
-package com.example.alexr.taskmanager.helpers;
+package com.example.alexr.ideamanager.helpers;
 
-import com.example.alexr.taskmanager.models.Idea;
-
+import com.example.alexr.ideamanager.models.Idea;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DummyContent {
+public class SampleContent {
 
     public static final List<Idea> ITEMS = new ArrayList<Idea>();
 
@@ -72,10 +71,16 @@ public class DummyContent {
     }
 
     public static void deleteIdea(int id){
+        Idea ideaToRemove = null;
+
         for(int i = 0; i < ITEMS.size(); i++){
             if(ITEMS.get(i).getId() == id){
-                ITEMS.remove(id);
+                ideaToRemove = ITEMS.get(i);
             }
+        }
+
+        if(ideaToRemove != null){
+            ITEMS.remove(ideaToRemove);
         }
     }
 

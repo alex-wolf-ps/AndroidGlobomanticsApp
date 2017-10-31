@@ -1,7 +1,8 @@
-package com.example.alexr.taskmanager;
+package com.example.alexr.ideamanager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.alexr.taskmanager.helpers.DummyContent;
-import com.example.alexr.taskmanager.models.Idea;
-import com.example.alexr.taskmanager.services.ServiceFactory;
-import com.example.alexr.taskmanager.services.IdeaService;
+import com.example.alexr.ideamanager.helpers.SampleContent;
+import com.example.alexr.ideamanager.models.Idea;
 
 public class IdeaDetailFragment extends Fragment {
 
@@ -45,13 +44,11 @@ public class IdeaDetailFragment extends Fragment {
         final EditText ideaStatus = (EditText) rootView.findViewById(R.id.idea_status);
         final EditText ideaOwner = (EditText) rootView.findViewById(R.id.idea_owner);
 
-        final IdeaService ideaService = ServiceFactory.createService(IdeaService.class);
-
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             Activity activity = this.getActivity();
             final CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
 
-            mItem = DummyContent.getIdeaById(getArguments().getInt(ARG_ITEM_ID));
+            mItem = SampleContent.getIdeaById(getArguments().getInt(ARG_ITEM_ID));
 
             ideaName.setText(mItem.getName());
             ideaDescription.setText(mItem.getDescription());
@@ -73,14 +70,18 @@ public class IdeaDetailFragment extends Fragment {
                 newIdea.setStatus(ideaStatus.getText().toString());
                 newIdea.setOwner(ideaOwner.getText().toString());
 
-                DummyContent.updateIdea(newIdea);
+                SampleContent.updateIdea(newIdea);
+                Intent intent = new Intent(getContext(), IdeaListActivity.class);
+                startActivity(intent);
             }
         });
 
         deleteIdea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.deleteIdea(getArguments().getInt(ARG_ITEM_ID));
+                SampleContent.deleteIdea(getArguments().getInt(ARG_ITEM_ID));
+                Intent intent = new Intent(getContext(), IdeaListActivity.class);
+                startActivity(intent);
             }
         });
 

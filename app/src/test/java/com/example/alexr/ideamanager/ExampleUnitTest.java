@@ -1,4 +1,4 @@
-package com.example.alexr.taskmanager;
+package com.example.alexr.ideamanager;
 
 import org.junit.Test;
 

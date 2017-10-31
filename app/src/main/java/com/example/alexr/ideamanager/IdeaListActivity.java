@@ -1,4 +1,4 @@
-package com.example.alexr.taskmanager;
+package com.example.alexr.ideamanager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
-import com.example.alexr.taskmanager.helpers.DummyContent;
-import com.example.alexr.taskmanager.models.Idea;
+import com.example.alexr.ideamanager.helpers.SampleContent;
+import com.example.alexr.ideamanager.models.Idea;
 
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class IdeaListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(SampleContent.ITEMS));
     }
 
 //region Adapter Region

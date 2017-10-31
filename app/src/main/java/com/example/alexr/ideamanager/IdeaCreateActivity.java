@@ -1,4 +1,4 @@
-package com.example.alexr.taskmanager;
+package com.example.alexr.ideamanager;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.alexr.taskmanager.helpers.DummyContent;
-import com.example.alexr.taskmanager.models.Idea;
+import com.example.alexr.ideamanager.helpers.SampleContent;
+import com.example.alexr.ideamanager.models.Idea;
 
 public class IdeaCreateActivity extends AppCompatActivity {
 
@@ -41,7 +41,7 @@ public class IdeaCreateActivity extends AppCompatActivity {
                 newIdea.setStatus(ideaStatus.getText().toString());
                 newIdea.setOwner(ideaOwner.getText().toString());
 
-                DummyContent.createIdea(newIdea);
+                SampleContent.createIdea(newIdea);
             }
         });
     }
