@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SampleContent {
 
-    public static final List<Idea> ITEMS = new ArrayList<Idea>();
+    public static final List<Idea> IDEAS = new ArrayList<Idea>();
 
     private static int COUNT = 5;
 
@@ -18,7 +18,7 @@ public class SampleContent {
         newIdea1.setStatus("Idea Stage");
         newIdea1.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce accumsan quis justo quis hendrerit. Curabitur a ante neque. Fusce nec mauris sodales, auctor sem at, luctus eros. Praesent aliquam nibh neque. Duis ut suscipit justo, id consectetur orci. Curabitur ultricies nunc eu enim dignissim, sed laoreet odio blandit.");
         newIdea1.setOwner("Bob");
-        ITEMS.add(newIdea1);
+        IDEAS.add(newIdea1);
 
         Idea newIdea2 = new Idea();
         newIdea2.setId(2);
@@ -26,7 +26,7 @@ public class SampleContent {
         newIdea2.setStatus("Started");
         newIdea2.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce accumsan quis justo quis hendrerit. Curabitur a ante neque. Fusce nec mauris sodales, auctor sem at, luctus eros. Praesent aliquam nibh neque. Duis ut suscipit justo, id consectetur orci. Curabitur ultricies nunc eu enim dignissim, sed laoreet odio blandit.");
         newIdea2.setOwner("Jim");
-        ITEMS.add(newIdea2);
+        IDEAS.add(newIdea2);
 
         Idea newIdea3 = new Idea();
         newIdea3.setId(3);
@@ -34,7 +34,7 @@ public class SampleContent {
         newIdea3.setStatus("Mind Mapped");
         newIdea3.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce accumsan quis justo quis hendrerit. Curabitur a ante neque. Fusce nec mauris sodales, auctor sem at, luctus eros. Praesent aliquam nibh neque. Duis ut suscipit justo, id consectetur orci. Curabitur ultricies nunc eu enim dignissim, sed laoreet odio blandit.");
         newIdea3.setOwner("Phil");
-        ITEMS.add(newIdea3);
+        IDEAS.add(newIdea3);
 
         Idea newIdea4 = new Idea();
         newIdea4.setId(4);
@@ -42,7 +42,7 @@ public class SampleContent {
         newIdea4.setStatus("POC");
         newIdea4.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce accumsan quis justo quis hendrerit. Curabitur a ante neque. Fusce nec mauris sodales, auctor sem at, luctus eros. Praesent aliquam nibh neque. Duis ut suscipit justo, id consectetur orci. Curabitur ultricies nunc eu enim dignissim, sed laoreet odio blandit.");
         newIdea4.setOwner("Joel");
-        ITEMS.add(newIdea4);
+        IDEAS.add(newIdea4);
 
         Idea newIdea5 = new Idea();
         newIdea5.setId(5);
@@ -50,20 +50,20 @@ public class SampleContent {
         newIdea5.setStatus("Exploratory");
         newIdea5.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce accumsan quis justo quis hendrerit. Curabitur a ante neque. Fusce nec mauris sodales, auctor sem at, luctus eros. Praesent aliquam nibh neque. Duis ut suscipit justo, id consectetur orci. Curabitur ultricies nunc eu enim dignissim, sed laoreet odio blandit.");
         newIdea5.setOwner("Jake");
-        ITEMS.add(newIdea5);
+        IDEAS.add(newIdea5);
 
     }
 
     public static void createIdea(Idea item) {
         item.setId(COUNT);
-        ITEMS.add(item);
+        IDEAS.add(item);
         COUNT += 1;
     }
 
     public static Idea getIdeaById(int id){
-        for(int i = 0; i < ITEMS.size(); i++){
-            if(ITEMS.get(i).getId() == id){
-                return ITEMS.get(i);
+        for(int i = 0; i < IDEAS.size(); i++){
+            if(IDEAS.get(i).getId() == id){
+                return IDEAS.get(i);
             }
         }
 
@@ -73,21 +73,21 @@ public class SampleContent {
     public static void deleteIdea(int id){
         Idea ideaToRemove = null;
 
-        for(int i = 0; i < ITEMS.size(); i++){
-            if(ITEMS.get(i).getId() == id){
-                ideaToRemove = ITEMS.get(i);
+        for(int i = 0; i < IDEAS.size(); i++){
+            if(IDEAS.get(i).getId() == id){
+                ideaToRemove = IDEAS.get(i);
             }
         }
 
         if(ideaToRemove != null){
-            ITEMS.remove(ideaToRemove);
+            IDEAS.remove(ideaToRemove);
         }
     }
 
     public static void updateIdea(Idea idea){
-        for(int i = 0; i < ITEMS.size(); i++){
-            if(ITEMS.get(i).getId() == idea.getId()){
-                Idea ideaToUpdate = ITEMS.get(i);
+        for(int i = 0; i < IDEAS.size(); i++){
+            if(IDEAS.get(i).getId() == idea.getId()){
+                Idea ideaToUpdate = IDEAS.get(i);
 
                 ideaToUpdate.setName(idea.getName());
                 ideaToUpdate.setDescription(idea.getDescription());
