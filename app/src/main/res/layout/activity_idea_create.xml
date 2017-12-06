@@ -109,17 +109,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/idea_delete"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Delete"
-                    android:layout_weight="1"
-                    android:textStyle="bold" />
-
-                <Button
                     android:id="@+id/idea_create"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
@@ -127,7 +116,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="Update"
+                    android:text="Create"
                     android:textColor="@color/colorWhite"
                     android:layout_weight="1"
                     android:textStyle="bold" />

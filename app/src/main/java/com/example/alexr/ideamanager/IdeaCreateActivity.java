@@ -1,5 +1,7 @@
 package com.example.alexr.ideamanager;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,8 @@ import android.widget.EditText;
 import com.example.alexr.ideamanager.helpers.SampleContent;
 import com.example.alexr.ideamanager.models.Idea;
 
+import java.util.Random;
+
 public class IdeaCreateActivity extends AppCompatActivity {
 
     @Override
@@ -19,6 +23,7 @@ public class IdeaCreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_idea_create);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+        final Context context = this;
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -42,6 +47,9 @@ public class IdeaCreateActivity extends AppCompatActivity {
                 newIdea.setOwner(ideaOwner.getText().toString());
 
                 SampleContent.createIdea(newIdea);
+
+                Intent intent = new Intent(context, IdeaListActivity.class);
+                startActivity(intent);
             }
         });
     }

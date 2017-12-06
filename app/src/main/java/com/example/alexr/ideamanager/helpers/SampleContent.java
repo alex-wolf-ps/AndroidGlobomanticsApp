@@ -55,9 +55,9 @@ public class SampleContent {
     }
 
     public static void createIdea(Idea item) {
+        COUNT += 1;
         item.setId(COUNT);
         IDEAS.add(item);
-        COUNT += 1;
     }
 
     public static Idea getIdeaById(int id){
